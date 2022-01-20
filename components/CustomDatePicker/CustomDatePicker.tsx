@@ -1,6 +1,15 @@
+import moment from 'moment';
 import React, {useState} from 'react';
-import {View, Button, Platform, StyleSheet, Text} from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import {
+  View,
+  Button,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
+import DateTimePicker from 'react-native-modal-datetime-picker';
 import {CustomDatePickerProps} from './types';
 
 const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
@@ -11,22 +20,34 @@ const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
   minimumDate,
   maximumDate,
 }) => {
-  const dateTimeChange = (_: any, selectedDate: any) => {
-    onChange(selectedDate);
+  const [visible, setVisible] = useState<boolean>(false);
+  const [_value, setValue] = useState<any>(value);
+  const dateTimeChange = (date: any) => {
+    onChange(date);
+    setValue(_value);
+    setVisible(false);
   };
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
+      <TouchableOpacity onPress={() => setVisible(true)}>
+        <Text style={styles.date}>
+          {mode === 'date'
+            ? moment(_value).format('YYYY-MM-DD')
+            : moment(_value).format('HH:mm')}
+        </Text>
+      </TouchableOpacity>
       <DateTimePicker
+        isVisible={visible}
         testID="dateTimePicker"
-        value={value}
         mode={mode}
         is24Hour={true}
-        display="default"
-        onChange={dateTimeChange}
+        onConfirm={dateTimeChange}
         style={styles.input}
         minimumDate={minimumDate}
         maximumDate={maximumDate}
+        onCancel={() => setVisible(false)}
+        textColor="black"
       />
     </View>
   );
@@ -39,10 +60,20 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     marginBottom: 3,
-    textAlign: 'right',
+    textAlign: 'left',
+    color: 'black',
   },
   input: {
     width: '100%',
+    color: 'black',
+  },
+  date: {
+    borderWidth: 1,
+    borderRadius: Dimensions.get('window').width * 0.03,
+    borderColor: '#ccc',
+    fontSize: 16,
+    padding: Dimensions.get('window').width * 0.02,
+    color: 'black',
   },
 });
 

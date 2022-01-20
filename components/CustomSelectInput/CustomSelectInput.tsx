@@ -16,10 +16,10 @@ const CustomSelectInput: React.FC<CustomSelectInputProps> = ({
       <Text style={styles.label}>{label}</Text>
       <View style={styles.selectContainer}>
         <ModalDropdown
-          textStyle={{fontSize: 18}}
-          dropdownStyle={{width: '80%'}}
+          textStyle={{fontSize: 18, color: 'black'}}
+          dropdownStyle={{width: '80%', color: 'boack'}}
           options={options}
-          dropdownTextStyle={{fontSize: 16}}
+          dropdownTextStyle={{fontSize: 16, color: 'black'}}
           defaultValue={value}
           onSelect={(index: number) => onChange(options[index])}
           renderRow={renderRow}
@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
   label: {
     marginBottom: 3,
     fontSize: 16,
+    color: 'black',
   },
   selectContainer: {
     borderWidth: 1,

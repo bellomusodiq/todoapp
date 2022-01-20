@@ -8,7 +8,11 @@ const Search: React.FC<SearchProps> = ({value, onChange}) => {
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <TextInput style={styles.input} placeholder="Search" />
+        <TextInput
+          placeholderTextColor={'#ccc'}
+          style={styles.input}
+          placeholder="Search"
+        />
       </View>
       <View style={styles.buttonContainer}>
         <CustomButton

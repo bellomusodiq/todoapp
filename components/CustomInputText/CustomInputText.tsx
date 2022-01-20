@@ -18,6 +18,8 @@ const CustomInputText: React.FC<CustomInputTextProps> = ({
         placeholder={label}
         multiline={multiline}
         numberOfLines={multiline ? 5 : 1}
+        placeholderTextColor={'gray'}
+        textAlignVertical="top"
       />
     </View>
   );
@@ -32,11 +34,14 @@ const styles = StyleSheet.create({
   label: {
     marginBottom: 3,
     fontSize: 16,
+    color: 'black',
   },
   input: {
     borderWidth: 1,
     borderColor: '#CCC',
+    color: 'black',
     fontSize: 16,
+    justifyContent: 'flex-start',
     padding: Dimensions.get('window').width * 0.03,
     borderRadius: Dimensions.get('window').width * 0.02,
   },

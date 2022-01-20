@@ -23,18 +23,20 @@ const CATEGORY: any = ['Web App', 'Mobile App'];
 const TaskFormScreen: React.FC = ({route}: any) => {
   const params = route.params;
 
-  const [title, setTitle] = useState<string>(params.title ?? '');
+  const [title, setTitle] = useState<string>(params?.title ?? '');
   const [category, setCategory] = useState<any>();
-  const [notes, setNotes] = useState<string>(params.notes ? params.notes : '');
-  const [date, setDate] = useState<any>(params.date ? params.date : new Date());
+  const [notes, setNotes] = useState<string>(
+    params?.notes ? params?.notes : '',
+  );
+  const [date, setDate] = useState<any>(
+    params?.date ? new Date(params?.date) : new Date(),
+  );
   const [timeStart, setTimeStart] = useState<any>(
-    params.timeStart ? params.timeStart : new Date(),
+    params?.timeStart ? new Date(params?.timeStart) : new Date(),
   );
   const [timeEnd, setTimeEnd] = useState<any>(
-    params.timeEnd ? params.timeEnd : moment().add(1, 'hour').toDate(),
+    params?.timeEnd ? params?.timeEnd : moment().add(1, 'hour').toDate(),
   );
-
-  console.log(category);
 
   const navigation = useNavigation<any>();
 
@@ -43,7 +45,7 @@ const TaskFormScreen: React.FC = ({route}: any) => {
       tasks.addTask(category.id, title, notes, date, timeStart, timeEnd);
     } else {
       tasks.updateTask(
-        params.id,
+        params?.id,
         category.id,
         title,
         notes,
@@ -51,26 +53,30 @@ const TaskFormScreen: React.FC = ({route}: any) => {
         timeStart,
         timeEnd,
       );
-      navigation.goBack();
     }
+    navigation.goBack();
   };
   return (
     <PageLayout>
       <ScrollView style={styles.container}>
-        <View style={{...styles.navHeader, backgroundColor: category?.color}}>
+        <View
+          style={{
+            ...styles.navHeader,
+            backgroundColor: category?.color ? category.color : 'white',
+          }}>
           <TouchableOpacity
             style={styles.backBtn}
             onPress={() => navigation.goBack()}>
             <Icon
               name="arrow-left"
               size={22}
-              color={category?.color ? 'white' : category?.color}
+              color={category?.color ? 'white' : 'black'}
             />
           </TouchableOpacity>
           <Text
             style={{
               ...styles.header,
-              color: category?.color ? 'white' : category?.color,
+              color: category?.color ? 'white' : 'black',
             }}>
             {params?.edit ? 'Edit Task' : 'Add New Task'}
           </Text>
@@ -172,6 +178,7 @@ const styles = StyleSheet.create({
   },
   selectRowText: {
     fontSize: 16,
+    color: 'black',
   },
   buttonContainer: {
     width: '100%',
