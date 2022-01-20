@@ -178,9 +178,11 @@ const styles = StyleSheet.create({
     width: '25%',
     marginRight: 5,
     fontWeight: 'bold',
+    color: 'black',
   },
   value: {
     flex: 1,
+    color: 'black',
   },
   progressContainer: {
     marginTop: 5,
